@@ -1,0 +1,8 @@
+Modern File Search & Launcher (Everything / PowerToys Run Alternative)
+Concept: tpt-finder – Instant file search with optional semantic understanding.
+Tech Stack: Rust (for USN journal parsing, like "Everything") + Local LLM integration (tying into your tpt-eve or tpt-anima projects).
+Why it’s better: "Everything" is legendary but its UI is stuck in the Windows XP era. A modern Tauri-based UI with keyboard-first navigation, plus an optional local AI layer that lets you search by context (e.g., "the PDF invoice from John last March") without sending data to the cloud.
+
+Compatible on Windows, Linux and Archon. https://github.com/tpt-solutions/tpt-archon
+
+Linux & Archon Compatibility: Native Linux inotify support. On Archon, it integrates directly with tpt-archon-relational, allowing users to run actual SQL queries over their filesystem (e.g., SELECT path FROM files WHERE content SIMILAR TO 'invoice') with zero-copy memory access.
