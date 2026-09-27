@@ -1,0 +1,5 @@
+# Clippy configuration
+# CI runs: cargo clippy --all-targets --all-features -- -D warnings
+
+# Disallow unwrap/expect in library code paths where possible via pedantic later;
+# start with the default set enforced through -D warnings in CI.

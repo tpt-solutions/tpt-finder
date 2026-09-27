@@ -1,0 +1,28 @@
+{
+	"name": "tpt-finder",
+	"private": true,
+	"version": "1.0.0",
+	"description": "Instant file search with optional semantic understanding",
+	"type": "module",
+	"license": "(MIT OR Apache-2.0)",
+	"author": "TPT Solutions",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc --noEmit && vite build",
+		"preview": "vite preview",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"tauri": "tauri"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@tauri-apps/api": "^2.2.0",
+		"@tauri-apps/cli": "^2.2.0",
+		"@types/node": "^22.20.4",
+		"typescript": "^5.7.2",
+		"vite": "^6.0.7"
+	}
+}

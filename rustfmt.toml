@@ -1,0 +1,6 @@
+# Rust formatting
+#
+# Keep defaults intentional and explicit so CI and local runs match.
+edition = "2021"
+max_width = 100
+use_small_heuristics = "Default"

@@ -13,72 +13,72 @@ Decisions locked in for this roadmap:
 
 ## Phase 0 — Project Setup & Licensing
 
-- [ ] Init git repo, `.gitignore` (Rust + Node/Tauri targets)
-- [ ] Add `LICENSE-MIT` and `LICENSE-APACHE` (dual license, TPT Solutions copyright)
-- [ ] Add SPDX dual-license header/notice convention for source files
-- [ ] `README.md` with project description (from spec.txt), build instructions, license badges
-- [ ] Scaffold Tauri app (`src-tauri/` Rust backend, plain TS/HTML `src/` frontend, Vite)
-- [ ] Configure `tauri.conf.json` (app id, window defaults for popup overlay + main window, bundle identifiers for tpt-finder)
-- [ ] Set up TypeScript config (tsconfig, no framework, module bundler)
-- [ ] Set up linting/formatting (rustfmt + clippy, eslint/prettier or biome for TS)
-- [ ] Set up CI pipeline (build + lint on push, Windows + Linux runners)
-- [ ] Decide repo hosting under `tpt-solutions` GitHub org, link to `tpt-archon-relational`
+- [x] Init git repo, `.gitignore` (Rust + Node/Tauri targets)
+- [x] Add `LICENSE-MIT` and `LICENSE-APACHE` (dual license, TPT Solutions copyright)
+- [x] Add SPDX dual-license header/notice convention for source files
+- [x] `README.md` with project description (from spec.txt), build instructions, license badges
+- [x] Scaffold Tauri app (`src-tauri/` Rust backend, plain TS/HTML `src/` frontend, Vite)
+- [x] Configure `tauri.conf.json` (app id, window defaults for popup overlay + main window, bundle identifiers for tpt-finder)
+- [x] Set up TypeScript config (tsconfig, no framework, module bundler)
+- [x] Set up linting/formatting (rustfmt + clippy, eslint/prettier or biome for TS)
+- [x] Set up CI pipeline (build + lint on push, Windows + Linux runners)
+- [x] Decide repo hosting under `tpt-solutions` GitHub org, link to `tpt-archon-relational`
 
 ## Phase 1 — Core Indexing Engine (Windows MVP)
 
-- [ ] Design core index data model (path, name, size, dates, attributes, volume) shared across backends
-- [ ] Design filesystem abstraction trait (so Windows/Linux/Archon backends share an interface)
-- [ ] USN Journal reader: initial full volume enumeration (MFT), then live journal tail for incremental updates
-- [ ] In-memory index structure for instant prefix/substring/fuzzy matching (Everything-style performance bar)
-- [ ] Multi-volume support (enumerate all NTFS volumes)
-- [ ] Index persistence to disk for fast cold-start (avoid full rescan every launch)
-- [ ] IPC command/event layer between Rust engine and TS frontend
-- [ ] Benchmark against large volumes (10M+ files) baseline
+- [x] Design core index data model (path, name, size, dates, attributes, volume) shared across backends
+- [x] Design filesystem abstraction trait (so Windows/Linux/Archon backends share an interface)
+- [x] USN Journal reader: initial full volume enumeration (MFT), then live journal tail for incremental updates
+- [x] In-memory index structure for instant prefix/substring/fuzzy matching (Everything-style performance bar)
+- [x] Multi-volume support (enumerate all NTFS volumes)
+- [x] Index persistence to disk for fast cold-start (avoid full rescan every launch)
+- [x] IPC command/event layer between Rust engine and TS frontend
+- [x] Benchmark against large volumes (10M+ files) baseline
 
 ## Phase 2 — Search UI (Popup + Main Window)
 
-- [ ] Global hotkey registration (configurable, e.g. Ctrl+Space) to summon popup overlay
-- [ ] Popup overlay UI: single input, instant results list, keyboard-only navigation (arrows/enter/esc), dismiss-on-blur
-- [ ] Persistent main window UI: search bar + sortable results table (name, path, size, modified, type)
-- [ ] Shared search/result-list component reused between popup and main window
-- [ ] Result actions: open, open containing folder, copy path, copy file, delete (to recycle bin)
-- [ ] Basic result preview (file info, type icon/thumbnail)
-- [ ] Instant as-you-type search wired to Rust engine via IPC
-- [ ] Query syntax: basic filters (`ext:`, `size:`, `dated:`, `path:`) similar to Everything
-- [ ] Settings: hotkey customization, popup vs main-window behavior
+- [x] Global hotkey registration (configurable, e.g. Ctrl+Space) to summon popup overlay
+- [x] Popup overlay UI: single input, instant results list, keyboard-only navigation (arrows/enter/esc), dismiss-on-blur
+- [x] Persistent main window UI: search bar + sortable results table (name, path, size, modified, type)
+- [x] Shared search/result-list component reused between popup and main window
+- [x] Result actions: open, open containing folder, copy path, copy file, delete (to recycle bin)
+- [x] Basic result preview (file info, type icon/thumbnail)
+- [x] Instant as-you-type search wired to Rust engine via IPC
+- [x] Query syntax: basic filters (`ext:`, `size:`, `dated:`, `path:`) similar to Everything
+- [x] Settings: hotkey customization, popup vs main-window behavior
 
 ## Phase 3 — Content Extraction Pipeline
 
-- [ ] Design extraction trait (file type → plain text + metadata)
-- [ ] Plain text/code file extraction (direct read)
-- [ ] PDF text extraction (e.g. `pdf-extract`/poppler bindings)
-- [ ] Office document extraction (docx/xlsx/pptx text + author/created-by metadata)
-- [ ] Background extraction worker queue (incremental, watches new/changed files, rate-limited)
-- [ ] Extracted text + metadata storage (SQLite + FTS5) alongside the file index
-- [ ] Skip rules for binaries/large files, size and type exclusion config
-- [ ] Extraction failure handling, retry/skip list
+- [x] Design extraction trait (file type → plain text + metadata)
+- [x] Plain text/code file extraction (direct read)
+- [x] PDF text extraction (e.g. `pdf-extract`/poppler bindings)
+- [x] Office document extraction (docx/xlsx/pptx text + author/created-by metadata)
+- [x] Background extraction worker queue (incremental, watches new/changed files, rate-limited)
+- [x] Extracted text + metadata storage (SQLite + FTS5) alongside the file index
+- [x] Skip rules for binaries/large files, size and type exclusion config
+- [x] Extraction failure handling, retry/skip list
 
 ## Phase 4 — Semantic Layer (Ollama Integration)
 
-- [ ] Detect local Ollama install (`localhost:11434`), model availability check
-- [ ] Embedding pipeline: chunk extracted text, call Ollama embedding endpoint, store vectors
-- [ ] Vector storage/index (`sqlite-vec` or embedded HNSW crate) alongside SQLite metadata store
-- [ ] Natural-language query parsing via local Ollama chat model → structured filters (type/date/author) + semantic terms
-- [ ] Hybrid ranking: structured filters + vector similarity + filename/full-text relevance
-- [ ] Background embedding worker (incremental, throttled to avoid saturating CPU/GPU)
-- [ ] Settings: enable/disable semantic layer, model selection, resource limits
-- [ ] Graceful degradation when Ollama isn't installed/running (feature disabled, standard search still works)
-- [ ] Privacy check: confirm no network calls beyond local Ollama; all data stays on-device
+- [x] Detect local Ollama install (`localhost:11434`), model availability check
+- [x] Embedding pipeline: chunk extracted text, call Ollama embedding endpoint, store vectors
+- [x] Vector storage/index (`sqlite-vec` or embedded HNSW crate) alongside SQLite metadata store
+- [x] Natural-language query parsing via local Ollama chat model → structured filters (type/date/author) + semantic terms
+- [x] Hybrid ranking: structured filters + vector similarity + filename/full-text relevance
+- [x] Background embedding worker (incremental, throttled to avoid saturating CPU/GPU)
+- [x] Settings: enable/disable semantic layer, model selection, resource limits
+- [x] Graceful degradation when Ollama isn't installed/running (feature disabled, standard search still works)
+- [x] Privacy check: confirm no network calls beyond local Ollama; all data stays on-device
 
 ## Phase 5 — Linux Support
 
-- [ ] Implement filesystem abstraction trait for Linux
-- [ ] Initial full-volume scan via `readdir` (no USN Journal equivalent on Linux)
-- [ ] Live updates via `inotify` (recursive watch, handle watch-limit exhaustion on large trees)
-- [ ] Index persistence reload (shared format with Windows where possible)
+- [x] Implement filesystem abstraction trait for Linux
+- [x] Initial full-volume scan via `readdir` (no USN Journal equivalent on Linux)
+- [x] Live updates via `inotify` (recursive watch, handle watch-limit exhaustion on large trees)
+- [x] Index persistence reload (shared format with Windows where possible)
 - [ ] Verify Phase 2 UI (hotkey + popup + main window) on X11 and Wayland
-- [ ] Verify Phase 3/4 extraction + semantic layer on Linux (Ollama detection too)
-- [ ] Linux packaging (AppImage/.deb/.rpm via Tauri bundler)
+- [x] Verify Phase 3/4 extraction + semantic layer on Linux (Ollama detection too)
+- [x] Linux packaging (AppImage/.deb/.rpm via Tauri bundler)
 - [ ] Manual QA pass on at least one major distro (X11 + Wayland)
 
 ## Phase 6 — Archon Platform Support (research-gated)
@@ -95,42 +95,42 @@ Decisions locked in for this roadmap:
 
 ## Phase 7 — Performance & Scale Hardening
 
-- [ ] Stress test against volumes with 10M+ files
-- [ ] Memory profiling (Rust engine + WebView frontend + vector index)
-- [ ] Cold start time optimization (index load from disk, journal catch-up)
-- [ ] Incremental update latency measurement (USN Journal/inotify → UI refresh)
-- [ ] Extraction/embedding pipeline throughput tuning (avoid disk/CPU thrash during initial bulk indexing)
+- [x] Stress test against volumes with 10M+ files (synthetic 10M-entry index run; see docs/benchmarks.md)
+- [x] Memory profiling (Rust engine + WebView frontend + vector index) — perf module + per-entry footprint measured
+- [x] Cold start time optimization (index load from disk, journal catch-up) — 1M ≈ 0.9 s, 10M ≈ 22 s; save() re-entrancy deadlock fixed
+- [x] Incremental update latency measurement (USN Journal/inotify → UI refresh) — sub-16 µs/entry at 10M
+- [x] Extraction/embedding pipeline throughput tuning (avoid disk/CPU thrash during initial bulk indexing) — SQLite WAL: 58 → 522 files/s
 
 ## Phase 8 — Polish & Settings
 
-- [ ] Light/dark theme support
-- [ ] Result list customization (columns, sort, icon/thumbnail size)
-- [ ] Exclusion rules UI (folders/extensions to skip indexing)
-- [ ] Accessibility pass (keyboard-only navigation, screen reader labels)
-- [ ] App icon, branding assets (TPT Solutions)
-- [ ] Crash reporting/local error logging (opt-in only, consistent with local-first privacy stance)
-- [ ] First-run onboarding (initial index build progress, Ollama setup guidance)
+- [x] Light/dark theme support (system/light/dark, live-applied to both windows)
+- [x] Result list customization (columns, sort, icon/thumbnail size) — column toggles + sort + row density, persisted
+- [x] Exclusion rules UI (folders/extensions to skip indexing) — settings-driven skip rules, hot-swapped
+- [x] Accessibility pass (keyboard-only navigation, screen reader labels) — listbox ARIA pattern, labels, focus rings, reduced motion
+- [x] App icon, branding assets (TPT Solutions) — full icon set (32→512 + multi-res .ico)
+- [x] Crash reporting/local error logging (opt-in only, consistent with local-first privacy stance) — local error.log, off by default, deleted when disabled
+- [x] First-run onboarding (initial index build progress, Ollama setup guidance)
 
 ## Phase 9 — Testing & QA
 
-- [ ] Unit tests: index engine (Windows USN + Linux scan/inotify)
-- [ ] Unit tests: content extraction pipeline (per file type)
-- [ ] Unit tests: semantic layer (mocked Ollama responses, hybrid ranking)
-- [ ] Integration tests: end-to-end query → results across engine + UI
-- [ ] Manual QA pass on Windows
+- [x] Unit tests: index engine (Windows USN + Linux scan/inotify) — 80 lib tests incl. engine/persistence/query/backend
+- [x] Unit tests: content extraction pipeline (per file type) — text/code/docx/xlsx/pptx + skip rules + worker
+- [x] Unit tests: semantic layer (mocked Ollama responses, hybrid ranking) — loopback validation, unreachable degradation, merge scores
+- [x] Integration tests: end-to-end query → results across engine + UI — tests/integration.rs (walk → index → query → persist → extract → FTS)
+- [x] Manual QA pass on Windows (release exe smoke test: theme, onboarding, view options, search, settings; found + fixed save() deadlock, empty-snapshot rebuild suppression, startup state race, slow walk)
 - [ ] Manual QA pass on Linux (X11 + Wayland)
 - [ ] Manual QA pass on Archon (once unblocked)
-- [ ] Security review (path traversal, IPC boundary, indexing scope limits, Ollama request handling)
+- [x] Security review (path traversal, IPC boundary, indexing scope limits, Ollama request handling) — docs/security-review.md; path validation + capability tightening applied
 
 ## Phase 10 — Release v1
 
-- [ ] Finalize versioning scheme (SemVer) and changelog process
-- [ ] Windows installer/bundle (MSI/NSIS via Tauri bundler), code signing decision
-- [ ] Linux bundles published (AppImage/.deb/.rpm)
-- [ ] Publish LICENSE files + notices in release artifacts
-- [ ] User-facing docs (install guide, query syntax reference, Ollama setup guide, keybindings)
-- [ ] Tag v1.0.0 release, publish to GitHub (tpt-solutions org)
-- [ ] Post-release triage process for bug reports
+- [x] Finalize versioning scheme (SemVer) and changelog process — CHANGELOG.md + SemVer policy; version 1.0.0
+- [x] Windows installer/bundle (MSI/NSIS via Tauri bundler), code signing decision — both built; unsigned for v1 (documented in docs/install.md)
+- [ ] Linux bundles published (AppImage/.deb/.rpm) — bundler targets configured; publish happens on release tag
+- [x] Publish LICENSE files + notices in release artifacts — bundle.license → NOTICE; LICENSE-MIT/LICENSE-APACHE in repo
+- [x] User-facing docs (install guide, query syntax reference, Ollama setup guide, keybindings) — docs/ directory
+- [ ] Tag v1.0.0 release, publish to GitHub (tpt-solutions org) — ready; tag/publish is the release action
+- [x] Post-release triage process for bug reports — CONTRIBUTING.md "Bug reports & triage"
 
 ---
 
